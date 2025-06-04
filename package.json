@@ -1,0 +1,46 @@
+{
+  "name": "@wthe/stylelint-config",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "style": "stylelint \"**/*.{css,less,scss}\"",
+    "style:fix": "stylelint \"**/*.{css,less,scss}\" --fix",
+    "prepare": "simple-git-hooks"
+  },
+  "dependencies": {
+    "stylelint-config-standard": "^38.0.0"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.9.1",
+    "@wthe/eslint-config": "^1.1.1",
+    "lint-staged": "^16.1.0",
+    "simple-git-hooks": "^2.13.0",
+    "stylelint": "^16.17.0",
+    "typescript": "^5.8.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
