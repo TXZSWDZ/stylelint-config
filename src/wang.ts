@@ -1,22 +1,32 @@
-import type { OptionConfig } from './types'
+import type { Config } from 'stylelint'
+
+import type { OptionConfig, OverrideConfig } from './types'
 
 import { css, ignores, less, scss } from './config'
 
 export function w(options: OptionConfig = {}) {
   const { less: enableLess = false, scss: enableScss = false } = options
 
-  const configs = []
+  function getOverrides<K extends keyof OptionConfig>(key: K): Config['rules'] {
+    const currentOverrides = options[key] as OverrideConfig
+    return {
+      ...currentOverrides?.rules ? currentOverrides.rules : {},
+      ...(options.overrides as Config['rules'])?.[key],
+    }
+  }
+
+  const overrides = []
 
   if (enableLess) {
-    configs.push(less())
+    overrides.push(less())
   }
   if (enableScss) {
-    configs.push(scss())
+    overrides.push(scss())
   }
 
   return {
     ...ignores(),
-    ...css(),
-    overrides: configs,
+    ...css({ ...options?.css ? options.css : {}, rules: getOverrides('css') }),
+    overrides,
   }
 }
