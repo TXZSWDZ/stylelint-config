@@ -26,6 +26,9 @@
     "style:fix": "stylelint \"**/*.{css,less,scss}\" --fix",
     "prepare": "simple-git-hooks"
   },
+  "peerDependencies": {
+    "stylelint": "^16.17.0"
+  },
   "dependencies": {
     "stylelint-config-standard": "^38.0.0"
   },
